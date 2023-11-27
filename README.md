@@ -1,6 +1,6 @@
 # pico-relay
 
-A basic script written in [MicroPython](https://micropython.org/), for a Raspberry Pico W. 
+A basic script written in [MicroPython](https://micropython.org/), for a Raspberry Pico W and a single channel relay. 
 
 This script will:
 - Create a soft access point, for being able to connect to the Pico and toggle the relay manually

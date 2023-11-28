@@ -1,14 +1,12 @@
-import schedule
 import time
 from machine import Pin
-try:
-    import usocket as socket
-except:
-    import socket
+import socket
 import network
-import gc
+import schedule
 
-gc.collect()
+led = Pin("LED", Pin.OUT)
+led.on()
+
 ssid = "CHRISTMAS_AP"
 password = "santa123"
 
@@ -32,7 +30,7 @@ def html(relay_status):
         <body>
             <h1>Christmas Tree</h1>
             <p>Lights are currently: {relay_status}</p>
-            <form action="/toggle" method="post">
+            <form action="/toggle" method="get">
                 <button type="submit" name="toggle" value="on">Turn On</button>
                 <button type="submit" name="toggle" value="off">Turn Off</button>
             </form>
@@ -50,7 +48,7 @@ def web_server():
         request = str(request)
         toggle_on = "toggle=on" in request
         toggle_off = "toggle=off" in request
-
+        print(request)
         if toggle_on:
             light_toggle("on")
         elif toggle_off:
@@ -74,4 +72,3 @@ schedule.every().day.at("16:00").do(light_toggle, power="on")
 schedule.every().day.at("22:00").do(light_toggle, power="off")
 
 web_server()
-
